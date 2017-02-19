@@ -19,8 +19,10 @@ public class Inicio {
         t.setTablero();
         t.setTrebejosCelda();
         t.mostrarTablero();
-        t.setmTrebejo();
-        t.mostrarTablero();
-    }
+        while ((t.j1.cantidadTrebejos != 0) || (t.j2.cantidadTrebejos != 0)) {
 
+            t.setmTrebejo();
+            t.mostrarTablero();
+        }
+    }
 }

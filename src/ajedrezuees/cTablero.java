@@ -81,6 +81,7 @@ public class cTablero {
         tablero[8][5] = new cRey();
         for (int i = 1; i < 9; i++) {
             tablero[j][i] = new cPeon(1);
+            //Ponerle 1 a todos
         }
         j = 2;
         tablero[1][3] = new cAlfil();
@@ -99,10 +100,13 @@ public class cTablero {
     public void setmTrebejo() {
         this.leer();
         while (true) {
-            this.tablero[x2][y2] = this.tablero[x1][y1];
-            this.tablero[x1][y1] = new cTrebejo();
-            if ((this.tablero[x1][y1].moverTrebejo(this.tablero, x1, x2, y1, y2)) == true){
-                System.out.println("asd");
+
+            if ((this.tablero[x1][y1].moverTrebejo(this.tablero, x1, x2, y1, y2)) == true) {
+                this.tablero[x2][y2] = this.tablero[x1][y1];
+                this.tablero[x1][y1] = new cTrebejo();
+                break;
+            }
+            else{
                 break;
             }
         }
@@ -111,7 +115,8 @@ public class cTablero {
 
     public void leer() {
         char column = ' ';
-        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h')) {
+        int o1, o2;
+        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h') || ((this.x1 < 0) || (this.x1 > 8))) {
             System.out.print("Ingrese la letra: ");
             column = scan.next().charAt(0);
 
@@ -149,10 +154,41 @@ public class cTablero {
         //agregar try catch
         System.out.print("Ingrese el numero: ");
         this.x1 = scan.nextInt();
+        //o1 = this.x1;
+        switch (this.x1) {
+            case 1:
+                this.x1 = 8;
+                break;
+            case 2:
+                this.x1 = 7;
+                break;
+            case 3:
+                this.x1 = 6;
+                break;
+            case 4:
+                this.x1 = 5;
+                break;
+            case 5:
+                this.x1 = 4;
+                break;
+            case 6:
+                this.x1 = 3;
+                break;
+            case 7:
+                this.x1 = 2;
+                break;
+            case 8:
+                this.x1 = 1;
+                break;
+            default:
+                System.out.println("No puede ingresar ese numero");
+
+        }
+
         scan.nextLine();
         column = ' ';
 
-        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h')) {
+        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h') || ((this.x2 < 0) || (this.x2 > 8))) {
             System.out.print("Ingrese la letra: ");
             column = scan.next().charAt(0);
 
@@ -186,8 +222,39 @@ public class cTablero {
 
             }
         }
-        //validar que no este fuera de rango
+        //valir que no este fuera de rango
+
         System.out.print("Ingrese el numero: ");
         this.x2 = scan.nextInt();
+        //o2 = this.x2;
+        switch (this.x2) {
+            case 1:
+                this.x2 = 8;
+                break;
+            case 2:
+                this.x2 = 7;
+                break;
+            case 3:
+                this.x2 = 6;
+                break;
+            case 4:
+                this.x2 = 5;
+                break;
+            case 5:
+                this.x2 = 4;
+                break;
+            case 6:
+                this.x2 = 3;
+                break;
+            case 7:
+                this.x2 = 2;
+                break;
+            case 8:
+                this.x2 = 1;
+                break;
+            default:
+                System.out.println("No puede ingresar ese numero");
+
+        }
     }
 }

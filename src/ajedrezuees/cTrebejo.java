@@ -72,6 +72,7 @@ public class cTrebejo {
 
     public boolean moverTrebejo(cTrebejo tablero[][], int x1, int x2, int y1, int y2) {
         boolean respuesta = true;
+        this.validacion(x1, x2, y1, y2);
         this.numero = 1;
 
         return respuesta;

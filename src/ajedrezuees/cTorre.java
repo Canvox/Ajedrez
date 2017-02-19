@@ -17,8 +17,44 @@ public class cTorre extends cTrebejo {
         this.color = " ";
     }
 
+    @Override
     public boolean moverTrebejo(cTrebejo tablero[][], int x1, int x2, int y1, int y2) {
         boolean respuesta = false;
+        if (super.validacion(x1, x2, y1, y2) == false) {
+            respuesta = false;
+        }
+        if (x1 > x2 && y1 == y2) {//sube
+            for (int i = x1 + 1; i <= x2; i--) {
+                if (tablero[i][y1].celdaOcupada(tablero, i, y1) != false) {
+                    respuesta = true;
+                }
+            }
+        }
+
+        if (x1 < x2 && y1 == y2) {//baja
+            for (int i = x1 + 1; i <= x2; i++) {
+                if (tablero[i][y1].celdaOcupada(tablero, i, y1) != false) {
+                    respuesta = true;
+                }
+            }
+        }
+        if (x1 == x2 && y1 > y2) {//izq
+            for (int i = x1 + 1; i <= x2; i--) {
+                if (tablero[i][y1].celdaOcupada(tablero, i, y1) != false) {
+                    respuesta = true;
+                }
+
+            }
+        }
+
+        if (x1 == x2 && y1 < y2) {//der
+            for (int i = x1 + 1; i <= x2; i++) {
+                if (tablero[i][y1].celdaOcupada(tablero, i, y1) != false) {
+                    respuesta = true;
+                }
+            }
+        }
+
         return respuesta;
     }
 }

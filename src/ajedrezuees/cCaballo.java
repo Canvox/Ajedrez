@@ -18,7 +18,18 @@ public class cCaballo extends cTrebejo {
     }
 
     public boolean moverTrebejo(cTrebejo tablero[][], int x1, int x2, int y1, int y2) {
-        boolean respuesta = false;
+        boolean respuesta = true;
+
+        if (super.validacion(x1, x2, y1, y2) == false) {
+            respuesta = false;
+        }
+        if (x2 != x1 - 1 && x2 != x1 + 1 && x2 != x1 + 2 && x2 != x1 - 2) {
+            respuesta = false;
+        }
+        if (y2 != y1 - 2 && y2 != y1 + 2 && y2 != y1 - 1 && y2 != y1 + 1) {
+            respuesta = false;
+        }
+
         return respuesta;
     }
 }
