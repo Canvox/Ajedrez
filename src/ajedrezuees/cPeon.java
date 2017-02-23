@@ -41,13 +41,13 @@ public class cPeon extends cTrebejo {
         boolean resp = false;
       
         if ((movimiento == 0)&&(super.validacion(x1, x2, y1, y2) == false))  {
-            if ((x2 - 1 >= (x1 -2)) && (y2 == y1)) {
+            if ((x1 <= (x2 + 2)) && (y2 == y1)) {
                 for (int i = x1 + 1; i <= x1 + 2; i++) {
-                    if (tablero[i][y1].celdaOcupada(tablero, i, y1) != false) {
+                    if (tablero[i][y1].celdaOcupada(tablero, i, y1) == false) {
                         contador++;
                     }
                 }
-                if (contador == 2) {
+                if (contador <= 2) {
                     resp = true;
                     movimiento++;
                 }
