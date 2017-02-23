@@ -16,7 +16,7 @@ public class Inicio {
      */
     public static void main(String[] args) {
         
-        //ASDASD
+        //ASDASDASD
         cTablero t = new cTablero();
         t.setTablero();
         t.setTrebejosCelda();
