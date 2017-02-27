@@ -10,14 +10,12 @@ package ajedrezuees;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.util.Scanner;
 
 /**
  *
  * @author valentinam.peralta
  */
-
 public class cTrebejo {
 
     static Scanner scan = new Scanner(System.in);
@@ -25,17 +23,27 @@ public class cTrebejo {
     protected String color;
     protected int numero;
     protected char inicial;
+    protected int cantidad;
 
     public cTrebejo() {
         this.color = " ";
         this.numero = 0;
         this.inicial = ' ';
+        this.cantidad = 0;
     }
 
-    public cTrebejo(String color, int numero, char inicial) {
+    public cTrebejo(int cantidad) {
+        this.color = " ";
+        this.numero = 0;
+        this.inicial = ' ';
+        this.cantidad = cantidad;
+    }
+
+    public cTrebejo(String color, int numero, char inicial, int cantidad) {
         this.color = color;
         this.numero = numero;
         this.inicial = inicial;
+        this.cantidad = cantidad;
     }
 
     public static Scanner getScan() {

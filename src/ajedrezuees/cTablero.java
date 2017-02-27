@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ajedrezuees;
 
 import java.util.Scanner;
@@ -14,20 +15,19 @@ import java.util.Scanner;
 public class cTablero {
 
     static Scanner scan = new Scanner(System.in);
-
-    private cTrebejo[][] tablero = new cTrebejo[10][10];
+    protected cTrebejo[][] tablero = new cTrebejo[10][10];
     protected cJugador j1, j2;
     private boolean disponible;
-    private int x1, x2, y1, y2;
+    protected int x1, x2, y1, y2;
 
     public cTablero() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                tablero[i][j] = new cTrebejo();
+                tablero[i][j] = new cTrebejo(0);
             }
         }
-        j1 = new cJugador("blanco");
-        j2 = new cJugador("negro");
+        j1 = new cJugador("blanco", 16);
+        j2 = new cJugador("negro", 16);
     }
 
     public void setTablero() {
@@ -71,125 +71,138 @@ public class cTablero {
     public void setTrebejosCelda() {
         int j = 7;
 
-        tablero[8][3] = new cAlfil();
-        tablero[8][6] = new cAlfil();
-        tablero[8][1] = new cTorre();
-        tablero[8][8] = new cTorre();
-        tablero[8][2] = new cCaballo();
-        tablero[8][7] = new cCaballo();
-        tablero[8][4] = new cReina();
-        tablero[8][5] = new cRey();
+        tablero[8][3] = new cAlfil(1, "blanco");
+        tablero[8][6] = new cAlfil(1, "blanco");
+        tablero[8][1] = new cTorre(1, "blanco");
+        tablero[8][8] = new cTorre(1, "blanco");
+        tablero[8][2] = new cCaballo(1, "blanco");
+        tablero[8][7] = new cCaballo(1, "blanco");
+        tablero[8][4] = new cReina(1, "blanco");
+        tablero[8][5] = new cRey(1, "blanco");
         for (int i = 1; i < 9; i++) {
-            tablero[j][i] = new cPeon(1);
-            //Ponerle 1 a todos
+            tablero[j][i] = new cPeon(1, "blanco");
         }
         j = 2;
-        tablero[1][3] = new cAlfil();
-        tablero[1][6] = new cAlfil();
-        tablero[1][1] = new cTorre();
-        tablero[1][8] = new cTorre();
-        tablero[1][2] = new cCaballo();
-        tablero[1][7] = new cCaballo();
-        tablero[1][4] = new cReina();
-        tablero[1][5] = new cRey();
+        tablero[1][3] = new cAlfil(1, "negro");
+        tablero[1][6] = new cAlfil(1, "negro");
+        tablero[1][1] = new cTorre(1, "negro");
+        tablero[1][8] = new cTorre(1, "negro");
+        tablero[1][2] = new cCaballo(1, "negro");
+        tablero[1][7] = new cCaballo(1, "negro");
+        tablero[1][4] = new cReina(1, "negro");
+        tablero[1][5] = new cRey(1, "negro");
         for (int i = 1; i < 9; i++) {
-            tablero[j][i] = new cPeon(1);
+            tablero[j][i] = new cPeon(1, "negro");
         }
     }
 
     public void setmTrebejo() {
-        this.leer();
-        while (true) {
+        if (this.tablero[x1][y1].color.compareTo(this.tablero[x2][y2].color) != 0) {
+            while (true) {
 
-            if ((this.tablero[x1][y1].moverTrebejo(this.tablero, x1, x2, y1, y2)) == true) {
-                this.tablero[x2][y2] = this.tablero[x1][y1];
-                this.tablero[x1][y1] = new cTrebejo();
-                break;
-            }
-            else{
-                break;
+                if ((this.tablero[x1][y1].moverTrebejo(this.tablero, x1, x2, y1, y2)) == true) {
+
+                    if ((this.tablero[x1][y1].color.compareTo(this.tablero[x2][y2].color) != 0) && (this.tablero[x2][y2].numero == 1)) {
+                        if (this.tablero[x1][y1].color.compareTo("blanco") == 0) {
+                            this.j2.cantidadTrebejos--;
+                        }
+                        if (this.tablero[x1][y1].color.compareTo("negro") == 0) {
+                            this.j1.cantidadTrebejos--;
+                        }
+                    }
+                    this.tablero[x2][y2] = this.tablero[x1][y1];
+                    this.tablero[x1][y1] = new cTrebejo(0);
+                    break;
+                } else {
+                    break;
+                }
             }
         }
-
     }
 
     public void leer() {
         char column = ' ';
-        int o1, o2;
-        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h') || ((this.x1 < 0) || (this.x1 > 8))) {
-            System.out.print("Ingrese la letra: ");
-            column = scan.next().charAt(0);
+        while (true) {
+            while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h')) {
+                System.out.print("Ingrese la letra1: ");
+                column = scan.next().charAt(0);
 
-            switch (column) {
-                case 'a':
-                    this.y1 = 1;
-                    break;
-                case 'b':
-                    this.y1 = 2;
-                    break;
-                case 'c':
-                    this.y1 = 3;
-                    break;
-                case 'd':
-                    this.y1 = 4;
-                    break;
-                case 'e':
-                    this.y1 = 5;
-                    break;
-                case 'f':
-                    this.y1 = 6;
-                    break;
-                case 'g':
-                    this.y1 = 7;
-                    break;
-                case 'h':
-                    this.y1 = 8;
-                    break;
-                default:
-                    System.out.println("No puede ingresar esa letra");
+                switch (column) {
+                    case 'a':
+                        this.y1 = 1;
+                        break;
+                    case 'b':
+                        this.y1 = 2;
+                        break;
+                    case 'c':
+                        this.y1 = 3;
+                        break;
+                    case 'd':
+                        this.y1 = 4;
+                        break;
+                    case 'e':
+                        this.y1 = 5;
+                        break;
+                    case 'f':
+                        this.y1 = 6;
+                        break;
+                    case 'g':
+                        this.y1 = 7;
+                        break;
+                    case 'h':
+                        this.y1 = 8;
+                        break;
+                    default:
+                        System.out.println("No puede ingresar esa letra");
 
+                }
+            }
+            this.x1 = 0;
+            while ((this.x1 <= 0) || (this.x1 > 8)) {
+                System.out.print("Ingrese el numero1: ");
+                this.x1 = scan.nextInt();
+                switch (this.x1) {
+                    case 1:
+                        this.x1 = 8;
+                        break;
+                    case 2:
+                        this.x1 = 7;
+                        break;
+                    case 3:
+                        this.x1 = 6;
+                        break;
+                    case 4:
+                        this.x1 = 5;
+                        break;
+                    case 5:
+                        this.x1 = 4;
+                        break;
+                    case 6:
+                        this.x1 = 3;
+                        break;
+                    case 7:
+                        this.x1 = 2;
+                        break;
+                    case 8:
+                        this.x1 = 1;
+                        break;
+                    default:
+                        System.out.println("No puede ingresar ese numero");
+
+                }
+            }
+            scan.nextLine();
+            column = ' ';
+            //Chequea si la celda esta vacia para no validar el movimiento 
+            if (this.tablero[x1][y1].numero == 0) {
+                System.out.println("Celda vacia");
+            }
+            if (this.tablero[x1][y1].numero == 1) {
+                break;
             }
         }
-        //valir que no este fuera de rango
-        //agregar try catch
-        System.out.print("Ingrese el numero: ");
-        this.x1 = scan.nextInt();
-        //o1 = this.x1;
-        switch (this.x1) {
-            case 1:
-                this.x1 = 8;
-                break;
-            case 2:
-                this.x1 = 7;
-                break;
-            case 3:
-                this.x1 = 6;
-                break;
-            case 4:
-                this.x1 = 5;
-                break;
-            case 5:
-                this.x1 = 4;
-                break;
-            case 6:
-                this.x1 = 3;
-                break;
-            case 7:
-                this.x1 = 2;
-                break;
-            case 8:
-                this.x1 = 1;
-                break;
-            default:
-                System.out.println("No puede ingresar ese numero");
-
-        }
-
-        scan.nextLine();
-        column = ' ';
-
-        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h') || ((this.x2 < 0) || (this.x2 > 8))) {
-            System.out.print("Ingrese la letra: ");
+        while ((column != 'a' && column != 'b' && column != 'c' && column != 'd' && column != 'e' && column != 'f' && column != 'g' && column != 'h')) {
+            System.out.print("Ingrese la letra2: ");
             column = scan.next().charAt(0);
 
             switch (column) {
@@ -222,39 +235,41 @@ public class cTablero {
 
             }
         }
-        //valir que no este fuera de rango
+        this.x2 = 0;
+        while ((this.x2 <= 0) || (this.x2 > 8)) {
+            System.out.print("Ingrese el numero2: ");
+            this.x2 = scan.nextInt();
+            switch (this.x2) {
+                case 1:
+                    this.x2 = 8;
+                    break;
+                case 2:
+                    this.x2 = 7;
+                    break;
+                case 3:
+                    this.x2 = 6;
+                    break;
+                case 4:
+                    this.x2 = 5;
+                    break;
+                case 5:
+                    this.x2 = 4;
+                    break;
+                case 6:
+                    this.x2 = 3;
+                    break;
+                case 7:
+                    this.x2 = 2;
+                    break;
+                case 8:
+                    this.x2 = 1;
+                    break;
+                default:
+                    System.out.println("No puede ingresar ese numero");
 
-        System.out.print("Ingrese el numero: ");
-        this.x2 = scan.nextInt();
-        //o2 = this.x2;
-        switch (this.x2) {
-            case 1:
-                this.x2 = 8;
-                break;
-            case 2:
-                this.x2 = 7;
-                break;
-            case 3:
-                this.x2 = 6;
-                break;
-            case 4:
-                this.x2 = 5;
-                break;
-            case 5:
-                this.x2 = 4;
-                break;
-            case 6:
-                this.x2 = 3;
-                break;
-            case 7:
-                this.x2 = 2;
-                break;
-            case 8:
-                this.x2 = 1;
-                break;
-            default:
-                System.out.println("No puede ingresar ese numero");
-
+            }
         }
+        scan.nextLine();
+        column = ' ';
     }
 }

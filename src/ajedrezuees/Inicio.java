@@ -15,17 +15,54 @@ public class Inicio {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        //ASDASDASD
         cTablero t = new cTablero();
+
+        t.j1.leerNombre(1, "blanco");
+        t.j2.leerNombre(2, "negro");
+
         t.setTablero();
         t.setTrebejosCelda();
         t.mostrarTablero();
-        while ((t.j1.cantidadTrebejos != 0) || (t.j2.cantidadTrebejos != 0)) {
 
-            t.setmTrebejo();
-            t.mostrarTablero();
+        while (true) {
+            while (true) {
+                t.leer();
+                if (t.tablero[t.x1][t.y1].color.compareTo("blanco") == 0) {
+                    t.setmTrebejo();
+                    t.mostrarTablero();
+                    break;
+                } else {
+                    System.out.println("");
+                    System.out.println("Turno del Jugador 1(blanco)");
+                    System.out.println("");
+                }
+
+            }
+            while (true) {
+                t.leer();
+                if (t.tablero[t.x1][t.y1].color.compareTo("negro") == 0) {
+                    t.setmTrebejo();
+                    t.mostrarTablero();
+                    break;
+                } else {
+                    System.out.println("");
+                    System.out.println("Turno del Jugador 2(negro)");
+                    System.out.println("");
+                }
+            }
+            if ((t.j1.cantidadTrebejos == 0) || (t.j2.cantidadTrebejos == 0)) {
+                System.out.println("Juego Finalizado");
+                if (t.j1.cantidadTrebejos == 0) {
+                    System.out.println("Ganador: " + t.j2.nombre + "(" + t.j2.color + ")");
+                    System.out.println("Perdedor: " + t.j1.nombre + "(" + t.j1.color + ")");
+                    break;
+                }
+                if (t.j2.cantidadTrebejos == 0) {
+                    System.out.println("Ganador: " + t.j1.nombre + "(" + t.j1.color + ")");
+                    System.out.println("Perdedor: " + t.j2.nombre + "(" + t.j2.color + ")");
+                    break;
+                }
+            }
         }
     }
-    //
 }
