@@ -17,7 +17,6 @@ public class cTablero {
     static Scanner scan = new Scanner(System.in);
     protected cTrebejo[][] tablero = new cTrebejo[10][10];
     protected cJugador j1, j2;
-    private boolean disponible;
     protected int x1, x2, y1, y2;
 
     public cTablero() {
@@ -46,10 +45,6 @@ public class cTablero {
         }
     }
 
-    public void gestionTablero() {
-
-    }
-
     public void mostrarTablero() {
 
         for (int row = 0; row < tablero.length; row++) {
@@ -62,10 +57,6 @@ public class cTablero {
                 System.out.println("-------------------------------------------");
             }
         }
-    }
-
-    public void checkDisponibilidad() {
-
     }
 
     public void setTrebejosCelda() {
@@ -99,17 +90,33 @@ public class cTablero {
     public void setmTrebejo() {
         if (this.tablero[x1][y1].color.compareTo(this.tablero[x2][y2].color) != 0) {
             while (true) {
-
+                //Validacion de movimiento de Trebejo
                 if ((this.tablero[x1][y1].moverTrebejo(this.tablero, x1, x2, y1, y2)) == true) {
-
+                    //Diferente y color y casilla esta ocupada (1 == ocupada)
                     if ((this.tablero[x1][y1].color.compareTo(this.tablero[x2][y2].color) != 0) && (this.tablero[x2][y2].numero == 1)) {
+                        //Diferencia entre blanco y negro
                         if (this.tablero[x1][y1].color.compareTo("blanco") == 0) {
+                            for (int i = 0; i < this.j2.lista.length; i++) {
+                                if (this.tablero[x1][y1].inicial == this.j2.lista[i]){
+                                    this.j2.lista[i] = ' ';
+                                }
+                            }
+                            this.j1.listaPeces[j1.k] = this.tablero[x2][y2].inicial;
+                            this.j1.k++;
                             this.j2.cantidadTrebejos--;
                         }
                         if (this.tablero[x1][y1].color.compareTo("negro") == 0) {
+                            for (int i = 0; i < this.j1.lista.length; i++) {
+                                if (this.tablero[x1][y1].inicial == this.j1.lista[i]){
+                                    this.j2.lista[i] = ' ';
+                                }
+                            }
+                            this.j2.listaPeces[j1.k] = this.tablero[x2][y2].inicial;
+                            this.j2.k++;
                             this.j1.cantidadTrebejos--;
                         }
                     }
+                    //Se sobreescribe el tablero y se cambia posicion (el otro desaparece)
                     this.tablero[x2][y2] = this.tablero[x1][y1];
                     this.tablero[x1][y1] = new cTrebejo(0);
                     break;

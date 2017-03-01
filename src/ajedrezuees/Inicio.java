@@ -19,6 +19,8 @@ public class Inicio {
 
         t.j1.leerNombre(1, "blanco");
         t.j2.leerNombre(2, "negro");
+        t.j1.setLista();
+        t.j2.setLista();
 
         t.setTablero();
         t.setTrebejosCelda();
@@ -50,6 +52,12 @@ public class Inicio {
                     System.out.println("");
                 }
             }
+
+            //t.j1.mostrar();
+            System.out.println("Blancas");
+            t.j1.mostrarPeces();
+            System.out.println("Negras");
+            t.j2.mostrarPeces();
             if ((t.j1.cantidadTrebejos == 0) || (t.j2.cantidadTrebejos == 0)) {
                 System.out.println("Juego Finalizado");
                 if (t.j1.cantidadTrebejos == 0) {
